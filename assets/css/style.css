@@ -463,20 +463,27 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 }
 .pc__grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
 .pc__c{
-  padding:0 1.9rem 2rem;border-radius:var(--r);border:1px solid var(--line);
+  padding:1.6rem 1.6rem 1.9rem;border-radius:var(--r);border:1px solid var(--line);
   background:linear-gradient(165deg,var(--ink-800),var(--ink-850) 60%);
   position:relative;overflow:hidden;
   display:flex;flex-direction:column;
 }
 .pc__c::before{content:"";position:absolute;inset:0 0 auto;height:1px;z-index:3;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent)}
-.pc__img{position:relative;margin:0 -1.9rem 1.6rem;overflow:hidden;background:var(--ink-950)}
-.pc__img img{width:100%;aspect-ratio:20/9;object-fit:cover;
+/* placa clara com a foto real da peça: a foto veio em fundo branco e o brilho
+   do aço tem a mesma luminância do fundo, então recorte por luminância comeria
+   a peça. Placa resolve sem artefato e conversa com o chip das marcas. */
+.pc__img{
+  position:relative;margin:0 0 1.5rem;overflow:hidden;
+  border-radius:8px;
+  background:#edeff1;
+}
+.pc__img img{width:100%;aspect-ratio:40/23;object-fit:cover;display:block;
   transition:transform .6s var(--q)}
-.pc__c:hover .pc__img img{transform:scale(1.045)}
+.pc__c:hover .pc__img img{transform:scale(1.04)}
 .pc__img::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(5,6,7,.3) 0%,rgba(5,6,7,0) 35%,rgba(19,22,25,.95) 100%);
+  background:radial-gradient(80% 100% at 50% 0%,rgba(0,0,0,.06),transparent 70%);
 }
 .pc__c h3{font:800 clamp(1.5rem,2.6vw,2rem)/1 var(--disp);letter-spacing:-.03em;
   text-transform:uppercase;margin-bottom:1.3rem}
