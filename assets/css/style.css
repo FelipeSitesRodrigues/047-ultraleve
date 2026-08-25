@@ -362,22 +362,20 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   content:"";position:absolute;inset:0 0 auto;height:1px;z-index:3;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);
 }
-.fam__img{display:block;position:relative;overflow:hidden;background:var(--ink-950)}
-.fam__img img{
-  width:100%;aspect-ratio:16/11;object-fit:cover;
-  transition:transform .55s var(--q),filter .35s var(--q);
+/* placa clara com a foto real da peça. O fundo das 13 fotos foi normalizado
+   para o mesmo tom, então a grade lê como um conjunto e não como uma colcha. */
+.fam__img{
+  display:block;position:relative;overflow:hidden;
+  margin:.55rem .55rem 0;border-radius:7px;background:#e9e9e9;
 }
-/* luz de estúdio por trás da peça, igual a marca fotografa no Instagram */
+.fam__img img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;display:block;
+  transition:transform .55s var(--q);
+}
 .fam__img::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(70% 90% at 50% 45%,rgba(196,210,222,.12),transparent 68%),
-    linear-gradient(180deg,rgba(5,6,7,.28) 0%,rgba(5,6,7,0) 32%,rgba(19,22,25,.9) 100%);
+  background:radial-gradient(80% 70% at 50% 0%,rgba(0,0,0,.05),transparent 72%);
 }
-/* peça recortada em PNG: fundo escuro com luz de estúdio atrás */
-.fam__img--ko{background:radial-gradient(62% 78% at 50% 48%,#20262b,#0a0c0e 72%)}
-.fam__img--ko img{object-fit:contain}
-.fam__img--ko::after{background:linear-gradient(180deg,rgba(5,6,7,.15) 0%,rgba(5,6,7,0) 40%,rgba(19,22,25,.85) 100%)}
 
 .fam__b{display:block;padding:1.05rem 1.15rem 0}
 .fam__c h3{font:800 1.12rem/1.1 var(--disp);letter-spacing:-.02em;text-transform:uppercase;
@@ -389,21 +387,25 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .fam__go svg{width:1rem;height:1rem;transition:transform .3s var(--q)}
 .fam__c:hover{transform:translateY(-4px);border-color:var(--line-hi);
   box-shadow:0 24px 48px -26px rgba(0,0,0,.95)}
-.fam__c:hover .fam__img img{transform:scale(1.06);filter:brightness(1.12)}
+.fam__c:hover .fam__img img{transform:scale(1.05)}
 .fam__c:hover .fam__go,.fam__go:hover{color:var(--fire-400)}
 .fam__c:hover .fam__go svg{transform:translateX(4px)}
 
-/* célula de ajuda, o recado que o Charles pediu no esboço */
+/* célula de ajuda, o recado que o Charles pediu no esboço.
+   Ocupa o resto da última linha em vez de deixar buraco na grade. */
 .fam__c--ajuda{
-  padding:1.5rem 1.35rem;justify-content:center;
-  background:linear-gradient(165deg,rgba(242,106,10,.1),var(--ink-850) 62%);
+  grid-column:span 3;
+  flex-direction:row;align-items:center;gap:1.5rem;
+  padding:1.6rem 1.8rem;
+  background:linear-gradient(100deg,rgba(242,106,10,.12),var(--ink-850) 58%);
   border-color:rgba(242,106,10,.3);
 }
 .fam__c--ajuda:hover{transform:none;border-color:rgba(242,106,10,.5)}
-.fam__c--ajuda svg{width:1.9rem;height:1.9rem;color:var(--fire-500);margin-bottom:.9rem}
-.fam__c--ajuda h3{font-size:1.05rem;margin-bottom:.5rem}
-.fam__c--ajuda p{color:var(--steel-300);font-size:.88rem;line-height:1.55;margin-bottom:1.2rem}
-.fam__c--ajuda .btn{font-size:.9rem;padding:.7rem 1rem}
+.fam__c--ajuda svg{width:2.1rem;height:2.1rem;color:var(--fire-500);flex:none;margin:0}
+.fam__c--ajuda div{flex:1;min-width:0}
+.fam__c--ajuda h3{font-size:1.15rem;margin-bottom:.35rem}
+.fam__c--ajuda p{color:var(--steel-300);font-size:.92rem;line-height:1.55;max-width:46ch}
+.fam__c--ajuda .btn{font-size:.95rem;padding:.8rem 1.2rem;width:auto;flex:none}
 
 .fam__mais{margin-top:1.8rem;color:var(--steel-400);font-size:.95rem}
 .fam__mais b{color:var(--steel-100);font-weight:600}
@@ -478,7 +480,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   border-radius:8px;
   background:#edeff1;
 }
-.pc__img img{width:100%;aspect-ratio:40/23;object-fit:cover;display:block;
+/* recorta a origem quadrada em 4:3. Preencher a lateral com cor chapada
+   deixava emenda visível contra o fundo da própria foto. */
+.pc__img img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
   transition:transform .6s var(--q)}
 .pc__c:hover .pc__img img{transform:scale(1.04)}
 .pc__img::after{
@@ -755,6 +759,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .hdr__cta svg{width:1.3rem;height:1.3rem}
 
   .fam{grid-template-columns:repeat(3,1fr)}
+  .fam__c--ajuda{grid-column:span 3}
   .rep{grid-template-columns:1fr;gap:.8rem}
   .marcas{grid-template-columns:repeat(4,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 2.5rem}
@@ -792,6 +797,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .hero__cta .btn{width:100%}
 
   .fam{grid-template-columns:repeat(2,1fr)}
+  .fam__c--ajuda{grid-column:span 2}
   .marcas{grid-template-columns:repeat(3,1fr)}
   .faixa{padding-top:calc(var(--hdr) + .4rem)}
   .faixa__t span{font-size:.66rem;letter-spacing:.14em;padding-right:1.6rem}
@@ -817,8 +823,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 
 @media (max-width:600px){
   .fam{grid-template-columns:1fr 1fr;gap:.7rem}
+  .fam__c--ajuda{grid-column:1/-1;flex-direction:column;align-items:flex-start;gap:1rem}
+  .fam__c--ajuda .btn{width:100%}
   .fam__c h3{font-size:.98rem}
-  .fam__c--ajuda{grid-column:1/-1}
   .marcas{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:1fr;gap:1.6rem}
   .steps li::after{display:none}
