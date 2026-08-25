@@ -47,7 +47,7 @@
   --pad:clamp(1.25rem, 4vw, 2.5rem);
   --sec:clamp(3.5rem, 6.5vw, 6rem);
   --r:10px;
-  --hdr:74px;
+  --hdr:86px;
 
   /* motion */
   --q:cubic-bezier(.23,1,.32,1);
@@ -193,7 +193,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .hdr__in{display:flex;align-items:center;gap:1.5rem;height:var(--hdr)}
 /* altura fixa no logo: é ela que define a altura real do header,
    e a faixa correndo depende desse número para não ficar escondida atrás */
-.hdr__logo img{height:42px;width:auto}
+.hdr__logo img{height:56px;width:auto;object-fit:contain}
 .hdr__logo{transition:opacity .2s var(--q)}
 .hdr__logo:hover{opacity:.82}
 
@@ -790,7 +790,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
     -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
             mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
   }
-  .hdr__logo img{width:112px}
+  :root{--hdr:72px}
+  /* só altura, nunca largura: a base já define height e travar as duas distorce */
+  .hdr__logo img{height:44px}
   .hdr__in{gap:.65rem}
   .hero__note{font-size:.68rem;letter-spacing:.08em}
   .hero__sub{max-width:none}
