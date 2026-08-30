@@ -46,6 +46,24 @@
     }
   });
 
+  /* ---------- catálogo: sanfona fechada no celular ----------
+     Vem aberto no HTML pra quem está no desktop ou sem JS ver tudo de uma vez. */
+  var grupos = document.querySelectorAll('.cat .grp');
+  var estreito = window.matchMedia('(max-width: 600px)');
+  var jaMexeu = false;
+  function ajustarGrupos(mq) {
+    if (jaMexeu) return;
+    for (var i = 0; i < grupos.length; i++) grupos[i].open = !mq.matches;
+  }
+  if (grupos.length) {
+    ajustarGrupos(estreito);
+    estreito.addEventListener('change', ajustarGrupos);
+    /* depois que a pessoa abre ou fecha um grupo, o navegador manda */
+    for (var j = 0; j < grupos.length; j++) {
+      grupos[j].addEventListener('toggle', function () { jaMexeu = true; });
+    }
+  }
+
   /* ---------- contadores ---------- */
   function contar(el) {
     var alvo = parseInt(el.dataset.count, 10);
