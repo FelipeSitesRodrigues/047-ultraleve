@@ -49,7 +49,7 @@
   /* ---------- catálogo: sanfona fechada no celular ----------
      Vem aberto no HTML pra quem está no desktop ou sem JS ver tudo de uma vez. */
   var grupos = document.querySelectorAll('.cat .grp');
-  var estreito = window.matchMedia('(max-width: 600px)');
+  var estreito = window.matchMedia('(max-width: 860px)');
   var jaMexeu = false;
   function ajustarGrupos(mq) {
     if (jaMexeu) return;

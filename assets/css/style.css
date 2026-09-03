@@ -43,9 +43,9 @@
   --mono:"IBM Plex Mono", ui-monospace, monospace;
 
   /* ritmo */
-  --wrap:1240px;
+  --wrap:1340px;
   --pad:clamp(1.25rem, 4vw, 2.5rem);
-  --sec:clamp(3.5rem, 6.5vw, 6rem);
+  --sec:clamp(3rem, 4.2vw, 4.25rem);
   --r:10px;
   --hdr:86px;
 
@@ -397,9 +397,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .sec--claro .marcas li{background:#fff;border-color:var(--line)}
 /* logos ficam sem moldura no claro, o fundo já é claro */
 .sec--claro .marcas li{border-color:#e2e6ea}
-.head{margin-bottom:clamp(2.5rem,5vw,3.75rem);max-width:70ch}
+.head{margin-bottom:clamp(1.9rem,2.8vw,2.6rem);max-width:70ch}
 .head--wide{max-width:78ch}
-.head .lede{margin-top:1.2rem}
+.head .lede{margin-top:.9rem}
 
 /* ---------- selos ---------- */
 .trust{background:var(--ink-950);border-bottom:1px solid var(--line)}
@@ -422,7 +422,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .trust__i b.num{color:var(--fire-500);font-size:1.2rem;letter-spacing:-.02em}
 
 /* ---------- famílias de produto ---------- */
-.fam{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.fam{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
 .fam__c{
   position:relative;border-radius:var(--r);
   display:flex;flex-direction:column;
@@ -449,11 +449,11 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   background:radial-gradient(80% 70% at 50% 0%,rgba(0,0,0,.05),transparent 72%);
 }
 
-.fam__b{display:block;padding:1.05rem 1.15rem 0}
-.fam__c h3{font:800 1.12rem/1.1 var(--disp);letter-spacing:-.02em;text-transform:uppercase;
-  margin-bottom:.35rem}
+.fam__b{display:block;padding:.85rem .95rem 0}
+.fam__c h3{font:800 1rem/1.1 var(--disp);letter-spacing:-.02em;text-transform:uppercase;
+  margin-bottom:.28rem}
 .fam__go{display:inline-flex;align-items:center;gap:.45rem;margin-top:auto;
-  padding:1rem 1.15rem 1.15rem;align-self:flex-start;
+  padding:.75rem .95rem .95rem;align-self:flex-start;
   font:600 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
   color:var(--steel-300);transition:color .25s var(--q)}
 .fam__go svg{width:1rem;height:1rem;transition:transform .3s var(--q)}
@@ -466,20 +466,21 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 /* célula de ajuda, o recado que o Charles pediu no esboço.
    Ocupa o resto da última linha em vez de deixar buraco na grade. */
 .fam__c--ajuda{
-  grid-column:span 3;
-  flex-direction:row;align-items:center;gap:1.5rem;
-  padding:1.6rem 1.8rem;
+  grid-column:span 2;
+  flex-direction:column;align-items:flex-start;gap:.85rem;
+  padding:1.35rem 1.5rem;justify-content:center;
   background:linear-gradient(100deg,rgba(242,106,10,.12),var(--ink-850) 58%);
   border-color:rgba(242,106,10,.3);
 }
 .fam__c--ajuda:hover{transform:none;border-color:rgba(242,106,10,.5)}
-.fam__c--ajuda svg{width:2.1rem;height:2.1rem;color:var(--fire-500);flex:none;margin:0}
-.fam__c--ajuda div{flex:1;min-width:0}
-.fam__c--ajuda h3{font-size:1.15rem;margin-bottom:.35rem}
-.fam__c--ajuda p{color:var(--steel-300);font-size:.92rem;line-height:1.55;max-width:46ch}
+.fam__c--ajuda svg{width:1.8rem;height:1.8rem;color:var(--fire-500);flex:none;margin:0}
+.fam__c--ajuda div{flex:none;min-width:0}
+.fam__c--ajuda h3{font-size:1.05rem;margin-bottom:.35rem}
+.fam__c--ajuda p{color:var(--steel-300);font-size:.88rem;line-height:1.5;max-width:46ch;
+  margin-top:.3rem}
 .fam__c--ajuda .btn{font-size:.95rem;padding:.8rem 1.2rem;width:auto;flex:none}
 
-.fam__mais{margin-top:1.8rem;color:var(--steel-400);font-size:.95rem}
+.fam__mais{margin-top:1.35rem;color:var(--steel-400);font-size:.95rem}
 .fam__mais b{color:var(--steel-100);font-weight:600}
 .fam__mais a{display:inline-flex;align-items:center;gap:.4rem;color:var(--fire-400);
   font-weight:600;transition:gap .25s var(--q)}
@@ -522,7 +523,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   background:#fff;
   transition:transform .3s var(--q),border-color .3s var(--q),box-shadow .3s var(--q);
 }
-.marcas img{width:100%;height:auto;display:block}
+.marcas img{width:100%;aspect-ratio:16/9;object-fit:contain;display:block;padding:.7rem}
 .marcas li:hover{transform:translateY(-3px);border-color:var(--line-hi);
   box-shadow:0 16px 34px -20px rgba(0,0,0,.9)}
 
@@ -546,7 +547,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
    do aço tem a mesma luminância do fundo, então recorte por luminância comeria
    a peça. Placa resolve sem artefato e conversa com o chip das marcas. */
 .pc__img{
-  position:relative;margin:0 0 1.5rem;overflow:hidden;
+  position:relative;margin:0 0 1.2rem;overflow:hidden;
   border-radius:8px;
   background:#edeff1;
 }
@@ -560,8 +561,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   background:radial-gradient(80% 100% at 50% 0%,rgba(0,0,0,.06),transparent 70%);
 }
 .pc__c h3{font:800 clamp(1.5rem,2.6vw,2rem)/1 var(--disp);letter-spacing:-.03em;
-  text-transform:uppercase;margin-bottom:1.3rem}
-.ticks{display:grid;gap:.72rem;margin-bottom:1.8rem;flex:1}
+  text-transform:uppercase;margin-bottom:1rem}
+.ticks{display:grid;gap:.6rem;margin-bottom:1.4rem;flex:1}
 .ticks li{position:relative;padding-left:1.7rem;color:var(--steel-300);
   font-size:.96rem;line-height:1.55}
 .ticks li b{color:var(--steel-100);font-weight:600}
@@ -570,11 +571,11 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   background:var(--fire-500);
   clip-path:polygon(0 0,100% 50%,0 100%);
 }
-.pc__foot{margin-top:1.9rem;color:var(--steel-400);font-size:.95rem;max-width:70ch}
-.pc__act{margin-top:1.6rem}
+.pc__foot{margin-top:1.4rem;color:var(--steel-400);font-size:.95rem;max-width:70ch}
+.pc__act{margin-top:1.2rem}
 
 /* ---------- catálogo ---------- */
-.cat{display:grid;gap:2.6rem;max-width:1000px}
+.cat{display:grid;gap:1.9rem;max-width:none}
 /* cada grupo é uma sanfona: aberta no desktop, fechada no celular.
    Vinte e dois itens abertos custavam 2.250px de rolagem no mobile. */
 .grp{display:block}
@@ -599,11 +600,14 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .grp__h i{flex:1;height:1px;background:linear-gradient(90deg,var(--line-hi),var(--line) 60%,transparent)}
 .grp__h em{font:500 .72rem/1 var(--mono);letter-spacing:.1em;color:var(--steel-500);
   font-style:normal;flex:none}
-.grp__l{border-top:1px solid var(--line)}
+/* duas colunas: a lista é curta por item, uma coluna só desperdiçava
+   metade da largura e dobrava a rolagem. */
+.grp__l{border-top:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;column-gap:2.4rem}
 .grp__l li{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr) auto;
   align-items:center;gap:1.25rem;
-  padding:.95rem .9rem;border-bottom:1px solid var(--line);
+  padding:.72rem .85rem;border-bottom:1px solid var(--line);
   position:relative;
   transition:background-color .22s var(--q);
 }
@@ -614,7 +618,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 }
 .grp__l li:hover{background:rgba(255,255,255,.028)}
 .grp__l li:hover::before{transform:scaleY(1)}
-.it{font:600 1.02rem/1.3 var(--body);color:var(--steel-100)}
+.it{font:600 .98rem/1.3 var(--body);color:var(--steel-100)}
 .ask{
   justify-self:end;white-space:nowrap;
   font:600 .74rem/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;
@@ -625,7 +629,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .ask:hover{color:var(--fire-400);border-color:var(--fire-600);background:rgba(242,106,10,.08)}
 
 .custom{
-  margin-top:3.2rem;max-width:1000px;padding:2rem 2.1rem;border-radius:var(--r);
+  margin-top:2.2rem;max-width:none;padding:1.7rem 1.9rem;border-radius:var(--r);
   border:1px solid var(--line);background:var(--ink-800);
   display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
 }
@@ -726,7 +730,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 
 /* ---------- faq ---------- */
 .faq{background:var(--ink-850)}
-.faq__l{border-top:1px solid var(--line);max-width:880px}
+.faq__l{border-top:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;column-gap:3.2rem;align-items:start}
 .q{border-bottom:1px solid var(--line)}
 .q summary{
   display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
@@ -822,6 +827,10 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
    RESPONSIVO
    ============================================================ */
 @media (max-width:1180px){
+  /* abaixo daqui a quinta coluna deixa a peça pequena demais */
+  .fam{grid-template-columns:repeat(4,1fr)}
+  .fam__c--ajuda{grid-column:span 3;flex-direction:row;align-items:center;gap:1.25rem}
+  .fam__c--ajuda div{flex:1}
   .hdr__nav{gap:1.15rem}
   .hdr__nav a{font-size:.74rem;letter-spacing:.1em}
   .hdr__ig span{display:none}
@@ -846,8 +855,6 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .hdr__cta{padding:.72rem .85rem}
   .hdr__cta svg{width:1.3rem;height:1.3rem}
 
-  .fam{grid-template-columns:repeat(3,1fr)}
-  .fam__c--ajuda{grid-column:span 3}
   .rep{grid-template-columns:1fr;gap:.8rem}
   .marcas{grid-template-columns:repeat(4,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 2.5rem}
@@ -862,6 +869,13 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 
 @media (max-width:860px){
   html{scroll-padding-top:calc(var(--hdr) + 8px)}
+  /* o ritmo do desktop não cabe num tablet */
+  .sec{padding:3rem 0}
+  .sec + .sec{padding-top:1.8rem}
+  .head{margin-bottom:1.9rem}
+  /* duas colunas só valem enquanto sobra largura */
+  .grp__l{grid-template-columns:1fr;column-gap:0}
+  .faq__l{grid-template-columns:1fr;column-gap:0}
   /* ordem do hero no celular: título, imagem, subtítulo, botões.
      Vem da ordem do DOM, sem order nenhum. */
   .hero{
@@ -886,8 +900,12 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .hero__sub{max-width:none}
   .hero__cta .btn{width:100%}
 
-  .fam{grid-template-columns:repeat(2,1fr)}
-  .fam__c--ajuda{grid-column:span 2}
+  .fam{grid-template-columns:repeat(3,1fr)}
+  .fam__img img{aspect-ratio:5/4}
+  .fam__b{padding:.75rem .8rem 0}
+  .fam__c h3{font-size:.95rem}
+  .fam__go{padding:.65rem .8rem .85rem}
+  .fam__c--ajuda{grid-column:span 3}
   .marcas{grid-template-columns:repeat(3,1fr)}
   .faixa{padding-top:calc(var(--hdr) + .4rem)}
   .faixa__t span{font-size:.66rem;letter-spacing:.14em;padding-right:1.6rem}
@@ -906,6 +924,12 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .trust__i svg{width:1.4rem;height:1.4rem}
   .trust__i b{font-size:.78rem}
   .trust__i p{font-size:.72rem}
+  /* sanfona do catálogo: fechada por padrão daqui pra baixo */
+  .grp__l{border-top:0}
+  .grp__h{padding:.75rem 0;margin-bottom:0}
+  .cat{gap:.2rem}
+  .grp{border-bottom:1px solid var(--line)}
+  .grp[open]{padding-bottom:.8rem}
   .pc__grid{grid-template-columns:1fr}
   .custom{flex-direction:column;align-items:flex-start}
   .custom .btn{width:100%}
@@ -960,7 +984,6 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .dif__c p{font-size:.82rem;line-height:1.5}
   .why{gap:1rem;margin-top:1.5rem}
   .why dd{font-size:.88rem}
-  .cat{gap:1.7rem}
   .grp__l li{grid-template-columns:1fr auto;gap:.35rem 1rem;padding:.8rem .5rem}
   .it{grid-column:1;font-size:.94rem}
   .grp__l li .spec{grid-column:1;grid-row:2}
@@ -975,16 +998,10 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .dep__g::-webkit-scrollbar{display:none}
   .dep{scroll-snap-align:center;padding:1.3rem 1.2rem;gap:.8rem}
   .dep blockquote p{font-size:.92rem}
-  /* catálogo fechado por padrão no celular */
-  .grp__l{border-top:0}
-  .grp__h{padding:.75rem 0;margin-bottom:0}
-  .cat{gap:.2rem}
-  .grp{border-bottom:1px solid var(--line)}
-  .grp[open]{padding-bottom:.8rem}
   .pc__img img{aspect-ratio:16/10}
   .q summary{padding:1rem .2rem;font-size:.94rem}
   .q__b p{padding-right:1.5rem;font-size:.9rem}
-  .ft__in{grid-template-columns:1fr;padding-bottom:2rem}
+  .ft__in{grid-template-columns:1fr 1fr;gap:1.6rem;padding-bottom:1.5rem}
   .btn{width:100%}
   .custom h3,.pc__c h3{font-size:1.35rem}
   .pc__c{padding:1.1rem 1.1rem 1.4rem}
