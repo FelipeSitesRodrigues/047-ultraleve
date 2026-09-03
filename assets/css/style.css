@@ -71,6 +71,9 @@ h1,h2,h3,p,dl,dd,figure,blockquote{margin:0}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.6;
     stroke-linecap:round;stroke-linejoin:round}
+/* marca do WhatsApp: glifo cheio, o unico do jogo que nao e em traco.
+   Desenhar a bolha em traco com o fone chapado dava um borrao no lugar do fone. */
+.ico-wa{fill:currentColor;stroke:none;transform:scale(.94)}
 
 /* superfícies do navegador, não deixar no default */
 ::selection{background:var(--fire-600);color:#fff}
@@ -262,10 +265,10 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 }
 /* fundo do hero: só existe no desktop, então o arquivo grande nem é baixado no celular */
 .hero__bg{display:none}
-@media (min-width:861px){
+@media (min-width:1001px){
   .hero__bg{
     display:block;position:absolute;inset:0;z-index:-2;
-    background:url("../img/hero-desktop-sm.jpg") 38% 58%/cover no-repeat;
+    background:url("../img/hero-desktop-sm.jpg") 100% 62%/cover no-repeat;
     animation:heroIn 1.6s var(--q) both;
   }
 }
@@ -831,8 +834,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .fam{grid-template-columns:repeat(4,1fr)}
   .fam__c--ajuda{grid-column:span 3;flex-direction:row;align-items:center;gap:1.25rem}
   .fam__c--ajuda div{flex:1}
-  .hdr__nav{gap:1.15rem}
-  .hdr__nav a{font-size:.74rem;letter-spacing:.1em}
+  .hdr__nav{gap:.8rem}
+  .hdr__nav a{font-size:.71rem;letter-spacing:.075em}
   .hdr__ig span{display:none}
   .trust__grid{grid-template-columns:repeat(3,1fr)}
   .trust__i:nth-child(4),.trust__i:nth-child(5){grid-column:span 1}
@@ -867,6 +870,30 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .final__in{gap:2rem}
 }
 
+@media (max-width:1000px){
+  /* ordem do hero no estreito: título, imagem, subtítulo, botões.
+     Vem da ordem do DOM, sem order nenhum. */
+  .hero{
+    min-height:0;padding:calc(var(--hdr) + 3.25rem) 0 3rem;
+    background:var(--ink-950);display:block;
+  }
+  .hero::before{display:none}
+  .hero__in{max-width:none}
+  .hero__in > *{max-width:none}
+  .hero__h1{max-width:none}
+  .hero__over{margin-bottom:.85rem;letter-spacing:.12em;font-size:.68rem;line-height:1.5}
+  .hero__ph{
+    display:block;height:clamp(240px,40vw,430px);
+    margin:1.35rem calc(var(--pad)*-1) .2rem;
+    background:url("../img/hero-desktop-sm.jpg") 82% 62%/cover no-repeat;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
+            mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
+  }
+  .hero__note{font-size:.68rem;letter-spacing:.08em}
+  .hero__sub{max-width:none}
+  .hero__cta .btn{width:100%}
+}
+
 @media (max-width:860px){
   html{scroll-padding-top:calc(var(--hdr) + 8px)}
   /* o ritmo do desktop não cabe num tablet */
@@ -876,30 +903,10 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   /* duas colunas só valem enquanto sobra largura */
   .grp__l{grid-template-columns:1fr;column-gap:0}
   .faq__l{grid-template-columns:1fr;column-gap:0}
-  /* ordem do hero no celular: título, imagem, subtítulo, botões.
-     Vem da ordem do DOM, sem order nenhum. */
-  .hero{
-    min-height:0;padding:calc(var(--hdr) + 3.25rem) 0 3rem;
-    background:var(--ink-950);display:block;
-  }
-  .hero::before{display:none}
-  .hero__in{max-width:none}
-  .hero__over{margin-bottom:.85rem;letter-spacing:.12em;font-size:.68rem;line-height:1.5}
-  .hero__ph{
-    display:block;aspect-ratio:1/1;max-height:44vh;
-    margin:1.35rem calc(var(--pad)*-1) .2rem;
-    background:url("../img/hero-mobile.jpg") center 56%/cover no-repeat;
-    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
-            mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
-  }
   :root{--hdr:72px}
   /* só altura, nunca largura: a base já define height e travar as duas distorce */
   .hdr__logo img{height:44px}
   .hdr__in{gap:.65rem}
-  .hero__note{font-size:.68rem;letter-spacing:.08em}
-  .hero__sub{max-width:none}
-  .hero__cta .btn{width:100%}
-
   .fam{grid-template-columns:repeat(3,1fr)}
   .fam__img img{aspect-ratio:5/4}
   .fam__b{padding:.75rem .8rem 0}
@@ -998,6 +1005,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .dep__g::-webkit-scrollbar{display:none}
   .dep{scroll-snap-align:center;padding:1.3rem 1.2rem;gap:.8rem}
   .dep blockquote p{font-size:.92rem}
+  /* faixa larga não funciona num celular: aqui entra o corte quadrado */
+  .hero__ph{height:min(94vw,46vh);background-image:url("../img/hero-mobile.jpg");
+    background-position:center 52%}
   .pc__img img{aspect-ratio:16/10}
   .q summary{padding:1rem .2rem;font-size:.94rem}
   .q__b p{padding-right:1.5rem;font-size:.9rem}
