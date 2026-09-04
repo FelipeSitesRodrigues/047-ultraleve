@@ -290,9 +290,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
    Limitar a largura AQUI centralizaria o bloco na viewport e jogaria a headline
    pro meio da tela. A trava de medida vai nos filhos, que ficam colados na margem. */
 .hero__in{position:relative}
-.hero__in > *{max-width:640px}
+.hero__in > *{max-width:700px}
 /* a headline precisa de mais espaço que o resto pra "PINOS E CUNHAS" caber numa linha só */
-.hero__h1{max-width:min(860px,58vw)}
+.hero__h1{max-width:min(940px,64vw)}
 /* imagem no fluxo, só no celular */
 .hero__ph{display:none}
 
@@ -303,18 +303,23 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .hero__h1{margin:0;font-family:var(--disp);text-transform:uppercase}
 .hero__h1 .chrome{
   display:block;
-  font-size:clamp(2.35rem,6.2vw,4.85rem);font-weight:900;
-  letter-spacing:-.045em;line-height:.95;
+  font-size:clamp(2rem,4.9vw,3.75rem);font-weight:900;
+  letter-spacing:-.045em;line-height:.95;text-wrap:balance;
 }
 .hero__h1b{
   display:block;margin-top:.34em;
-  font-size:clamp(1.28rem,3.05vw,2.25rem);font-weight:700;line-height:1.1;
+  font-size:clamp(1.2rem,2.5vw,1.85rem);font-weight:700;line-height:1.15;
   letter-spacing:-.028em;color:var(--steel-100);
   text-shadow:0 2px 20px rgba(0,0,0,.92);
 }
+.hero__grito{
+  display:block;margin-bottom:.6rem;
+  font:800 clamp(1rem,1.55vw,1.18rem)/1.3 var(--disp);
+  letter-spacing:-.01em;text-transform:uppercase;color:#fff;
+}
 .hero__sub{
-  margin-top:1.5rem;max-width:42ch;color:var(--steel-200);
-  font-size:clamp(1rem,1.7vw,1.12rem);line-height:1.65;
+  margin-top:1.35rem;max-width:48ch;color:var(--steel-200);
+  font-size:clamp(.97rem,1.55vw,1.06rem);line-height:1.6;
   text-shadow:0 1px 12px rgba(0,0,0,.85);
 }
 .hero__cta{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.1rem}
