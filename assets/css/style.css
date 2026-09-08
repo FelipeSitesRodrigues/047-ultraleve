@@ -515,14 +515,42 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .rep__b{padding:1.25rem 1.35rem 0}
 .rep__c h3{font:700 clamp(1.05rem,1.35vw,1.2rem)/1.2 var(--disp);text-transform:uppercase;
   letter-spacing:-.015em;margin-bottom:.3rem}
-.rep__go{display:inline-flex;align-items:center;gap:.45rem;
-  margin-top:auto;padding:1.05rem 1.35rem 1.25rem;
-  font:600 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
-  color:var(--steel-400);transition:color .25s var(--q)}
-.rep__go svg{width:1.15rem;height:1.15rem}
+.rep__go{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  margin:auto 1.35rem 1.35rem;padding:.95rem 1rem;border-radius:8px;
+  background:linear-gradient(180deg,var(--fire-500),var(--fire-700));
+  color:#fff;font:800 .92rem/1 var(--disp);letter-spacing:.01em;
+  text-transform:none;
+  box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
+             0 10px 24px -14px rgba(242,106,10,.9);
+  animation:repPulso 2.4s var(--q) infinite;
+  transition:background-color .2s var(--q),box-shadow .25s var(--q),transform .18s var(--q);
+}
+.rep__go svg{width:1.2rem;height:1.2rem;flex:none}
+/* halo que abre e some, sem mexer no tamanho do botao: nada empurra o layout */
+@keyframes repPulso{
+  0%   {box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
+                   0 10px 24px -14px rgba(242,106,10,.9),
+                   0 0 0 0 rgba(242,106,10,.55)}
+  62%  {box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
+                   0 10px 24px -14px rgba(242,106,10,.9),
+                   0 0 0 12px rgba(242,106,10,0)}
+  100% {box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
+                   0 10px 24px -14px rgba(242,106,10,.9),
+                   0 0 0 0 rgba(242,106,10,0)}
+}
+/* os tres em uma so batida viram alarme: escalona o pulso */
+.rep__c:nth-child(2) .rep__go{animation-delay:.35s}
+.rep__c:nth-child(3) .rep__go{animation-delay:.7s}
 .rep__c:hover{transform:translateY(-4px);border-color:var(--fire-600);
   box-shadow:0 24px 46px -26px rgba(0,0,0,.95)}
-.rep__c:hover .rep__go{color:var(--fire-400)}
+.rep__c:hover .rep__go{
+  background:linear-gradient(180deg,var(--fire-400),var(--fire-600));
+  box-shadow:0 1px 0 rgba(255,205,165,.55) inset,
+             0 16px 32px -14px rgba(242,106,10,.95);
+  animation-play-state:paused;
+}
+.rep__c:active .rep__go{transform:scale(.985)}
 .rep__c:hover .rep__foto img{transform:scale(1.045)}
 
 /* ---------- marcas de clientes ---------- */
@@ -839,7 +867,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 
   .rep{grid-template-columns:repeat(3,1fr);gap:.8rem}
   .rep__b{padding:1rem 1rem 0}
-  .rep__go{padding:.9rem 1rem 1.05rem}
+  .rep__go{margin:auto 1rem 1rem;padding:.85rem .8rem;font-size:.82rem;gap:.4rem}
+  .rep__go svg{width:1.05rem;height:1.05rem}
   .marcas{grid-template-columns:repeat(4,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 2.5rem}
   .steps li:nth-child(2)::after{display:none}
@@ -927,13 +956,16 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 /* abaixo de 780 nao cabem tres colunas de retrato: o card vira linha */
 @media (max-width:780px){
   .rep{grid-template-columns:1fr;gap:.55rem}
-  .rep__c{flex-direction:row;align-items:center}
-  .rep__foto{flex:none;width:122px;aspect-ratio:1/1;
+  .rep__c{display:grid;grid-template-columns:auto minmax(0,1fr);
+    grid-template-areas:"foto dados" "foto botao";align-items:center}
+  .rep__foto{grid-area:foto;align-self:stretch;width:128px;aspect-ratio:auto;
     border-bottom:0;border-right:1px solid var(--line)}
   .rep__foto img{object-position:50% 16%}
-  .rep__b{flex:1;min-width:0;padding:.9rem .95rem}
-  .rep__c h3{font-size:.98rem}
-  .rep__go{margin:0;padding:0 1rem 0 0;font-size:.64rem;letter-spacing:.08em}
+  .rep__b{grid-area:dados;min-width:0;padding:.85rem 1rem .15rem}
+  .rep__c h3{font-size:1rem}
+  .rep__go{grid-area:botao;margin:.5rem 1rem .9rem;padding:.72rem .9rem;
+    font-size:.86rem;letter-spacing:.01em}
+  .rep__go svg{width:1.1rem;height:1.1rem}
 }
 
 @media (max-width:600px){
@@ -1007,7 +1039,16 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 /* ============================================================
    MOVIMENTO REDUZIDO
    ============================================================ */
+@media (max-width:430px){
+  .rep__foto{width:98px}
+  .rep__b{padding:.75rem .8rem .1rem}
+  .rep__c h3{font-size:.92rem}
+  .rep__go{margin:.45rem .8rem .75rem;padding:.7rem .6rem;font-size:.8rem;gap:.35rem}
+  .rep__go svg{width:1rem;height:1rem}
+}
+
 @media (prefers-reduced-motion:reduce){
+  .rep__go{animation:none}
   html{scroll-behavior:auto}
   *,*::before,*::after{
     animation-duration:.01ms !important;animation-iteration-count:1 !important;
