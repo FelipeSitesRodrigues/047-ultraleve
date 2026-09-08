@@ -495,33 +495,35 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .fam__mais a:hover{gap:.7rem}
 
 /* ---------- equipe comercial ---------- */
-.rep{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.rep{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,1.6vw,1.4rem)}
 .rep__c{
-  display:flex;align-items:center;gap:1rem;
-  padding:1.35rem 1.4rem;border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:stretch;
+  padding:0;border-radius:var(--r);
   background:linear-gradient(180deg,var(--ink-800),var(--ink-850));
   border:1px solid var(--line);position:relative;overflow:hidden;
   transition:transform .3s var(--q),border-color .3s var(--q),box-shadow .3s var(--q);
 }
-.rep__c::before{content:"";position:absolute;inset:0 0 auto;height:1px;
+.rep__c::before{content:"";position:absolute;inset:0 0 auto;height:1px;z-index:3;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)}
-.rep__ini{
-  display:grid;place-items:center;flex:none;width:52px;height:52px;border-radius:50%;
-  border:1px solid var(--line-hi);
-  background:radial-gradient(120% 120% at 50% 0%,rgba(255,255,255,.09),transparent 70%);
-  font:800 1rem/1 var(--disp);letter-spacing:.02em;color:var(--steel-200);
-}
-.rep__b{flex:1;min-width:0}
-.rep__c h3{font:700 1.05rem/1.2 var(--disp);text-transform:uppercase;letter-spacing:-.015em;
-  margin-bottom:.25rem}
-.rep__go{display:inline-flex;align-items:center;gap:.4rem;flex:none;
+/* foto real do representante: quadrada e ancorada no rosto, nao no centro do arquivo */
+.rep__foto{display:block;position:relative;aspect-ratio:1/1;overflow:hidden;
+  background:var(--ink-850);border-bottom:1px solid var(--line)}
+.rep__foto img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block;
+  transition:transform .55s var(--q)}
+.rep__foto::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,6,7,0) 58%,rgba(5,6,7,.42))}
+.rep__b{padding:1.25rem 1.35rem 0}
+.rep__c h3{font:700 clamp(1.05rem,1.35vw,1.2rem)/1.2 var(--disp);text-transform:uppercase;
+  letter-spacing:-.015em;margin-bottom:.3rem}
+.rep__go{display:inline-flex;align-items:center;gap:.45rem;
+  margin-top:auto;padding:1.05rem 1.35rem 1.25rem;
   font:600 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
   color:var(--steel-400);transition:color .25s var(--q)}
 .rep__go svg{width:1.15rem;height:1.15rem}
-.rep__c:hover{transform:translateY(-3px);border-color:var(--fire-600);
-  box-shadow:0 20px 40px -26px rgba(0,0,0,.95)}
+.rep__c:hover{transform:translateY(-4px);border-color:var(--fire-600);
+  box-shadow:0 24px 46px -26px rgba(0,0,0,.95)}
 .rep__c:hover .rep__go{color:var(--fire-400)}
-.rep__c:hover .rep__ini{color:#fff;border-color:var(--fire-600)}
+.rep__c:hover .rep__foto img{transform:scale(1.045)}
 
 /* ---------- marcas de clientes ---------- */
 .marcas{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem}
@@ -607,17 +609,28 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
     linear-gradient(180deg,var(--ink-850),rgba(12,14,16,0) 22%,rgba(12,14,16,0) 78%,var(--ink-850));
 }
 .fab__in{position:relative;z-index:2;display:grid;
-  grid-template-columns:minmax(0,.78fr) minmax(0,1.2fr) minmax(0,.86fr);
-  gap:clamp(1.75rem,3vw,3rem);align-items:stretch}
-.fab__txt,.fab .stats{align-self:center}
-.fab__foto{position:relative;border-radius:var(--r);overflow:hidden;
-  border:1px solid var(--line-hi);min-height:440px}
-.fab__foto img{width:100%;height:100%;object-fit:cover;display:block}
-.fab__foto::after{
+  grid-template-columns:minmax(0,.78fr) minmax(0,1.6fr);
+  gap:clamp(1.5rem,2.6vw,2.6rem);align-items:stretch}
+.fab__txt{align-self:center}
+.fab .stats{grid-column:1/-1;grid-template-columns:repeat(4,1fr);margin-top:.4rem}
+/* duas fotos: a prensa em pe manda no bloco, o laser e paisagem e fecha embaixo */
+.fab__foto{position:relative;display:grid;grid-template-rows:auto auto;
+  gap:clamp(.6rem,1vw,.9rem);align-self:center}
+.fab__f{position:relative;margin:0;border-radius:var(--r);overflow:hidden;
+  border:1px solid var(--line-hi);min-height:0}
+.fab__f img{width:100%;height:100%;object-fit:cover;display:block}
+.fab__f--a{aspect-ratio:4/5}
+.fab__f--a img{object-position:50% 44%}
+.fab__f--b{aspect-ratio:16/9}
+.fab__f::after{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(5,6,7,.35),rgba(5,6,7,0) 40%,rgba(5,6,7,.55));
+  background:linear-gradient(180deg,rgba(5,6,7,.28),rgba(5,6,7,0) 42%,rgba(5,6,7,.62));
   box-shadow:0 1px 0 rgba(255,255,255,.14) inset;
 }
+.fab__f figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:1.4rem .95rem .8rem;
+  font:600 .64rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--steel-200)}
 .why{display:grid;gap:1.35rem;margin-top:2.2rem}
 .why dt{font:700 1.05rem/1.3 var(--disp);text-transform:uppercase;letter-spacing:-.01em;
   color:var(--steel-100);position:relative;padding-left:1.1rem}
@@ -734,7 +747,17 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .final__t{flex:1 1 620px}
 .final__t .h2{font-size:clamp(1.6rem,3vw,2.35rem)}
 .final__t .lede{font-size:1rem;margin-top:.9rem;max-width:52ch}
-.final__b{display:flex;flex-wrap:wrap;gap:.85rem;flex:0 1 auto}
+.final__b{display:grid;grid-template-columns:auto auto;gap:.85rem;flex:0 1 auto;
+  align-items:center;justify-items:start}
+.final__envio{
+  grid-column:1/-1;display:inline-flex;align-items:center;gap:.55rem;
+  margin-bottom:.15rem;padding:.55rem .9rem;border-radius:999px;
+  border:1px solid rgba(242,106,10,.38);background:rgba(242,106,10,.1);
+  font:500 .74rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--steel-200);text-wrap:balance;
+}
+.final__envio b{color:var(--fire-400);font-weight:700}
+.final__envio svg{width:1.05rem;height:1.05rem;flex:none;color:var(--fire-500)}
 .final__n{margin-top:1.1rem;font:500 .74rem/1.5 var(--mono);letter-spacing:.11em;
   text-transform:uppercase;color:var(--steel-500)}
 
@@ -814,14 +837,15 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .hdr__cta{padding:.72rem .85rem}
   .hdr__cta svg{width:1.3rem;height:1.3rem}
 
-  .rep{grid-template-columns:1fr;gap:.8rem}
+  .rep{grid-template-columns:repeat(3,1fr);gap:.8rem}
+  .rep__b{padding:1rem 1rem 0}
+  .rep__go{padding:.9rem 1rem 1.05rem}
   .marcas{grid-template-columns:repeat(4,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 2.5rem}
   .steps li:nth-child(2)::after{display:none}
   .dif__g{grid-template-columns:repeat(2,1fr)}
   .dep__g{grid-template-columns:1fr}
-  .fab__in{grid-template-columns:minmax(0,.85fr) minmax(0,1.2fr);gap:2rem}
-  .fab__foto{grid-row:span 2;min-height:0}
+  .fab__in{grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:2rem}
   .fab::after{background:linear-gradient(180deg,rgba(12,14,16,.86),rgba(12,14,16,.94))}
   .final__in{gap:2rem}
 }
@@ -873,9 +897,14 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .faixa{padding-top:calc(var(--hdr) + .4rem)}
   .faixa__t span{font-size:.66rem;letter-spacing:.14em;padding-right:1.6rem}
   .fab__in{grid-template-columns:1fr;gap:2rem}
-  .fab__foto{grid-row:auto;max-width:none;min-height:0;aspect-ratio:16/9}
+  .fab__foto{max-width:none;
+    grid-template-rows:none;grid-template-columns:1.02fr 1fr;align-items:stretch}
+  .fab__f--a{aspect-ratio:3/4}
+  .fab__f--b{aspect-ratio:auto}
+  .fab .stats{grid-template-columns:1fr 1fr}
   .final__b .btn{width:100%}
-  .final__b{width:100%}
+  .final__b{width:100%;grid-template-columns:1fr;justify-items:stretch}
+  .final__envio{justify-content:center;text-align:center}
 
   /* selos em duas colunas: empilhado em cinco custava meia tela de rolagem */
   .trust__grid{grid-template-columns:1fr 1fr;padding-inline:0}
@@ -893,6 +922,18 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .ft__brand{grid-column:1/-1}
   body{padding-bottom:66px}
   .wsp{display:flex}
+}
+
+/* abaixo de 780 nao cabem tres colunas de retrato: o card vira linha */
+@media (max-width:780px){
+  .rep{grid-template-columns:1fr;gap:.55rem}
+  .rep__c{flex-direction:row;align-items:center}
+  .rep__foto{flex:none;width:122px;aspect-ratio:1/1;
+    border-bottom:0;border-right:1px solid var(--line)}
+  .rep__foto img{object-position:50% 16%}
+  .rep__b{flex:1;min-width:0;padding:.9rem .95rem}
+  .rep__c h3{font-size:.98rem}
+  .rep__go{margin:0;padding:0 1rem 0 0;font-size:.64rem;letter-spacing:.08em}
 }
 
 @media (max-width:600px){
