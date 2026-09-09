@@ -652,7 +652,6 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .fab__f--a{grid-area:solda;aspect-ratio:3/2}
 .fab__f--a img{object-position:58% 46%}
 .fab__f--b{grid-area:prensa;aspect-ratio:1/1}
-.fab__f--b img{object-position:50% 40%}
 .fab__f--c{grid-area:laser;aspect-ratio:1/1}
 .fab__f::after{
   content:"";position:absolute;inset:0;pointer-events:none;
