@@ -607,16 +607,6 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .pc__c h3{font:800 clamp(1.02rem,1.35vw,1.2rem)/1.1 var(--disp);letter-spacing:-.025em;
   text-transform:uppercase;margin-bottom:.3rem;padding:0 .3rem}
 .pc__c .spec{display:block;padding:0 .3rem}
-/* peça que o Charles ainda vai fotografar: placa no mesmo tom das outras,
-   pra grade não ficar com buraco nem com foto emprestada de outra peça */
-.pc__img--breve{
-  aspect-ratio:4/3;display:grid;place-items:center;
-  background:repeating-linear-gradient(135deg,#e9ecef 0 10px,#e4e8ec 10px 20px);
-}
-.pc__img--breve span{
-  font:500 .68rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:#8a949e;border:1px dashed #b9c1c9;border-radius:6px;padding:.5rem .7rem;
-}
 .pc__foot{margin-top:1.4rem;color:var(--steel-400);font-size:.95rem;max-width:70ch}
 .pc__act{margin-top:1.2rem}
 
