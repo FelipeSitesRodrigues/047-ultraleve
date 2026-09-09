@@ -47,7 +47,7 @@
   --pad:clamp(1.25rem, 4vw, 2.5rem);
   --sec:clamp(3rem, 4.2vw, 4.25rem);
   --r:10px;
-  --hdr:86px;
+  --hdr:104px;
 
   /* motion */
   --q:cubic-bezier(.23,1,.32,1);
@@ -198,7 +198,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .hdr__in{display:flex;align-items:center;gap:1.5rem;height:var(--hdr)}
 /* altura fixa no logo: é ela que define a altura real do header,
    e a faixa correndo depende desse número para não ficar escondida atrás */
-.hdr__logo img{height:56px;width:auto;object-fit:contain}
+.hdr__logo img{height:72px;width:auto;object-fit:contain}
 .hdr__logo{transition:opacity .2s var(--q)}
 .hdr__logo:hover{opacity:.82}
 
@@ -642,14 +642,18 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .fab__txt{align-self:center}
 .fab .stats{grid-column:1/-1;grid-template-columns:repeat(4,1fr);margin-top:.4rem}
 /* duas fotos: a prensa em pe manda no bloco, o laser e paisagem e fecha embaixo */
-.fab__foto{position:relative;display:grid;grid-template-rows:auto auto;
+.fab__foto{position:relative;display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-areas:"solda solda" "prensa laser";
   gap:clamp(.6rem,1vw,.9rem);align-self:center}
 .fab__f{position:relative;margin:0;border-radius:var(--r);overflow:hidden;
   border:1px solid var(--line-hi);min-height:0}
 .fab__f img{width:100%;height:100%;object-fit:cover;display:block}
-.fab__f--a{aspect-ratio:4/5}
-.fab__f--a img{object-position:50% 44%}
-.fab__f--b{aspect-ratio:16/9}
+.fab__f--a{grid-area:solda;aspect-ratio:3/2}
+.fab__f--a img{object-position:58% 46%}
+.fab__f--b{grid-area:prensa;aspect-ratio:1/1}
+.fab__f--b img{object-position:50% 40%}
+.fab__f--c{grid-area:laser;aspect-ratio:1/1}
 .fab__f::after{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(5,6,7,.28),rgba(5,6,7,0) 42%,rgba(5,6,7,.62));
@@ -659,14 +663,6 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   padding:1.4rem .95rem .8rem;
   font:600 .64rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
   color:var(--steel-200)}
-.why{display:grid;gap:1.35rem;margin-top:2.2rem}
-.why dt{font:700 1.05rem/1.3 var(--disp);text-transform:uppercase;letter-spacing:-.01em;
-  color:var(--steel-100);position:relative;padding-left:1.1rem}
-.why dt::before{content:"";position:absolute;left:0;top:.42em;width:4px;height:4px;
-  border-radius:50%;background:var(--fire-500);box-shadow:0 0 10px var(--fire-500)}
-.why dd{margin:.35rem 0 0 1.1rem;color:var(--steel-400);font-size:.95rem;line-height:1.6;
-  max-width:56ch}
-
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
   border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 .stat{background:rgba(8,9,11,.8);padding:1.6rem 1.3rem;text-align:left}
@@ -911,9 +907,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .head{margin-bottom:1.9rem}
   /* duas colunas só valem enquanto sobra largura */
   .faq__l{grid-template-columns:1fr;column-gap:0}
-  :root{--hdr:72px}
+  :root{--hdr:84px}
   /* só altura, nunca largura: a base já define height e travar as duas distorce */
-  .hdr__logo img{height:44px}
+  .hdr__logo img{height:54px}
   .hdr__in{gap:.65rem}
   .pc__grid{grid-template-columns:repeat(3,1fr)}
   .fam{grid-template-columns:repeat(3,1fr)}
@@ -926,10 +922,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .faixa{padding-top:calc(var(--hdr) + .4rem)}
   .faixa__t span{font-size:.66rem;letter-spacing:.14em;padding-right:1.6rem}
   .fab__in{grid-template-columns:1fr;gap:2rem}
-  .fab__foto{max-width:none;
-    grid-template-rows:none;grid-template-columns:1.02fr 1fr;align-items:stretch}
-  .fab__f--a{aspect-ratio:3/4}
-  .fab__f--b{aspect-ratio:auto}
+  .fab__foto{max-width:none;align-items:stretch}
+  .fab__f--a{aspect-ratio:16/10}
   .fab .stats{grid-template-columns:1fr 1fr}
   .final__b .btn{width:100%}
   .final__b{width:100%;grid-template-columns:1fr;justify-items:stretch}
@@ -1010,8 +1004,6 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .dif__c svg{width:1.5rem;height:1.5rem;margin-bottom:.7rem}
   .dif__c h3{font-size:.92rem}
   .dif__c p{font-size:.82rem;line-height:1.5}
-  .why{gap:1rem;margin-top:1.5rem}
-  .why dd{font-size:.88rem}
   /* depoimentos viram carrossel: três empilhados custavam 1.440px */
   .dep__g{
     grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;
