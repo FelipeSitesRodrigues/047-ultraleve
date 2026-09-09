@@ -462,6 +462,9 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   text-transform:uppercase;color:var(--steel-300);text-wrap:pretty}
 .ficha i{font-style:normal;color:var(--steel-500);margin-right:.42em}
 .ficha__d{color:var(--steel-400)}
+/* liga e tempero na mesma linha, separados como no card da vitrine:
+   temperado e caracteristica do aco, nao um rotulo a parte */
+.ficha__e i{color:var(--fire-600);margin:0;padding:0 .35em}
 .fam__c h3{font:800 1rem/1.1 var(--disp);letter-spacing:-.02em;text-transform:uppercase;
   margin-bottom:.28rem}
 .fam__go{display:inline-flex;align-items:center;gap:.45rem;margin-top:auto;
