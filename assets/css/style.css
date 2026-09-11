@@ -4,6 +4,24 @@
    Assinatura visual: o corte de chapa a plasma entre as seções
    ============================================================ */
 
+/* ---------- fontes ----------
+   Servidas do próprio site. Pelo Google Fonts eram duas conexões novas e uma folha
+   de estilo travando a primeira pintura (0,85 s no Lighthouse mobile).
+   Arquivos latin sem hinting, os mesmos que o Google entrega para o Android.
+   Archivo e Plex Sans são variáveis: um arquivo cobre a faixa de peso inteira. */
+@font-face{font-family:"Archivo";font-style:normal;font-weight:500 900;font-stretch:100%;
+  font-display:swap;src:url("../fonts/archivo-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400 600;font-stretch:100%;
+  font-display:swap;src:url("../fonts/ibm-plex-sans-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;
+  font-display:swap;src:url("../fonts/ibm-plex-mono-500-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;
+  font-display:swap;src:url("../fonts/ibm-plex-mono-600-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
 :root{
   /* superfícies */
   --ink-950:#050607;
@@ -268,12 +286,12 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 @media (min-width:1001px){
   .hero__bg{
     display:block;position:absolute;inset:0;z-index:-2;
-    background:url("../img/hero-desktop-sm.jpg") 100% 62%/cover no-repeat;
+    background:url("../img/hero-desktop-sm.webp") 100% 62%/cover no-repeat;
     animation:heroIn 1.6s var(--q) both;
   }
 }
 @media (min-width:1301px){
-  .hero__bg{background-image:url("../img/hero-desktop.jpg")}
+  .hero__bg{background-image:url("../img/hero-desktop.webp")}
 }
 @keyframes heroIn{from{opacity:0;transform:scale(1.045)}to{opacity:1;transform:none}}
 
@@ -509,6 +527,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   padding:0;border-radius:var(--r);
   background:linear-gradient(180deg,var(--ink-800),var(--ink-850));
   border:1px solid var(--line);position:relative;overflow:hidden;
+  /* contexto de empilhamento próprio: é nele que o halo do botão (z-index -1) cai */
+  isolation:isolate;
   transition:transform .3s var(--q),border-color .3s var(--q),box-shadow .3s var(--q);
 }
 .rep__c::before{content:"";position:absolute;inset:0 0 auto;height:1px;z-index:3;
@@ -528,37 +548,45 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   margin:auto 1.35rem 1.35rem;padding:.95rem 1rem;border-radius:8px;
   background:linear-gradient(180deg,var(--fire-500),var(--fire-700));
   color:#fff;font:800 .92rem/1 var(--disp);letter-spacing:.01em;
-  text-transform:none;
+  text-transform:none;position:relative;
   box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
              0 10px 24px -14px rgba(242,106,10,.9);
-  animation:repPulso 2.4s var(--q) infinite;
   transition:background-color .2s var(--q),box-shadow .25s var(--q),transform .18s var(--q);
 }
 .rep__go svg{width:1.2rem;height:1.2rem;flex:none}
-/* halo que abre e some, sem mexer no tamanho do botao: nada empurra o layout */
+/* Halo que abre e some, sem mexer no tamanho do botão.
+   Era box-shadow animado, que repinta a cada quadro (o Lighthouse acusava como
+   animação não composta). Agora é uma camada atrás do botão que só cresce
+   (transform) e apaga (opacity), as duas resolvidas na GPU.
+   A escala não é uniforme porque o botão é largo e baixo: o alvo são os mesmos
+   12px de halo dos quatro lados. Abaixo de 1000px o botão encolhe e usa repPulsoM. */
+.rep__go::before{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  background:rgba(242,106,10,.55);opacity:0;pointer-events:none;
+  animation:repPulso 2.4s var(--q) infinite;
+}
 @keyframes repPulso{
-  0%   {box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
-                   0 10px 24px -14px rgba(242,106,10,.9),
-                   0 0 0 0 rgba(242,106,10,.55)}
-  62%  {box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
-                   0 10px 24px -14px rgba(242,106,10,.9),
-                   0 0 0 12px rgba(242,106,10,0)}
-  100% {box-shadow:0 1px 0 rgba(255,190,140,.4) inset,
-                   0 10px 24px -14px rgba(242,106,10,.9),
-                   0 0 0 0 rgba(242,106,10,0)}
+  0%{opacity:1;transform:none}
+  62%,100%{opacity:0;transform:scale(1.062,1.48)}
+}
+@keyframes repPulsoM{
+  0%{opacity:1;transform:none}
+  62%,100%{opacity:0;transform:scale(1.1,1.6)}
 }
 /* os tres em uma so batida viram alarme: escalona o pulso */
-.rep__c:nth-child(2) .rep__go{animation-delay:.35s}
-.rep__c:nth-child(3) .rep__go{animation-delay:.7s}
+.rep__c:nth-child(2) .rep__go::before{animation-delay:.35s}
+.rep__c:nth-child(3) .rep__go::before{animation-delay:.7s}
 .rep__c:hover{transform:translateY(-4px);border-color:var(--fire-600);
   box-shadow:0 24px 46px -26px rgba(0,0,0,.95)}
 .rep__c:hover .rep__go{
   background:linear-gradient(180deg,var(--fire-400),var(--fire-600));
   box-shadow:0 1px 0 rgba(255,205,165,.55) inset,
              0 16px 32px -14px rgba(242,106,10,.95);
-  animation-play-state:paused;
 }
+.rep__c:hover .rep__go::before{animation-play-state:paused}
 .rep__c:active .rep__go{transform:scale(.985)}
+/* o transform do clique cria contexto no botão e o halo passaria por cima do fundo */
+.rep__c:active .rep__go::before{visibility:hidden}
 .rep__c:hover .rep__foto img{transform:scale(1.045)}
 
 /* ---------- marcas de clientes ---------- */
@@ -622,12 +650,15 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 
 /* ---------- a fábrica ---------- */
 .fab{background:var(--ink-850);overflow:hidden}
+/* a foto só entra quando o main.js marca .on, perto da seção. Fundo de CSS
+   baixa na carga mesmo fora da tela e disputava banda com o hero */
 .fab__bg{
   position:absolute;inset:0;z-index:0;
-  background:url("../img/hero-desktop-sm.jpg") center 42%/cover no-repeat;
+  background:center 42%/cover no-repeat;
   filter:grayscale(.35) brightness(.62) contrast(1.1);
   opacity:.85;
 }
+.fab__bg.on{background-image:url("../img/hero-desktop-sm.webp")}
 .fab::after{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
@@ -801,12 +832,15 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 .ft__col a:hover{color:var(--fire-400)}
 .ft__cta a{font-weight:500;color:var(--steel-200)}
 .ft__where{margin-top:1.2rem;color:var(--steel-400);font-size:.86rem;line-height:1.55}
-.ft__where span{display:inline-block;margin-top:.5rem;color:var(--steel-500)}
+/* steel-400 e não 500: no fundo 950 o 500 dá 4,3:1, e texto pequeno pede 4,5 */
+.ft__where span{display:inline-block;margin-top:.5rem;color:var(--steel-400)}
 .ft__base{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
   padding:1.4rem 0;border-top:1px solid var(--line)}
-.ft__base p{color:var(--steel-500);font-size:.82rem}
-.ft__base a{color:var(--steel-300);transition:color .2s var(--q)}
-.ft__base a:hover{color:var(--fire-400)}
+.ft__base p{color:var(--steel-400);font-size:.82rem}
+/* link no meio da frase precisa de sublinhado: só a cor não separa ele do texto */
+.ft__base a{color:var(--steel-300);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:var(--line-hi);transition:color .2s var(--q),text-decoration-color .2s var(--q)}
+.ft__base a:hover{color:var(--fire-400);text-decoration-color:currentColor}
 
 /* ---------- barra fixa mobile ---------- */
 .wsp{
@@ -862,6 +896,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .rep__b{padding:1rem 1rem 0}
   .rep__go{margin:auto 1rem 1rem;padding:.85rem .8rem;font-size:.82rem;gap:.4rem}
   .rep__go svg{width:1.05rem;height:1.05rem}
+  .rep__go::before{animation-name:repPulsoM}
   .marcas{grid-template-columns:repeat(4,1fr)}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 2.5rem}
   .steps li:nth-child(2)::after{display:none}
@@ -887,7 +922,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .hero__ph{
     display:block;height:clamp(240px,40vw,430px);
     margin:1.35rem calc(var(--pad)*-1) .2rem;
-    background:url("../img/hero-desktop-sm.jpg") 82% 62%/cover no-repeat;
+    background:url("../img/hero-desktop-sm.webp") 82% 62%/cover no-repeat;
     -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
             mask-image:linear-gradient(180deg,transparent 0,#000 13%,#000 84%,transparent 100%);
   }
@@ -1015,7 +1050,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
   .dep{scroll-snap-align:center;padding:1.3rem 1.2rem;gap:.8rem}
   .dep blockquote p{font-size:.92rem}
   /* faixa larga não funciona num celular: aqui entra o corte quadrado */
-  .hero__ph{height:min(94vw,46vh);background-image:url("../img/hero-mobile.jpg");
+  .hero__ph{height:min(94vw,46vh);background-image:url("../img/hero-mobile.webp");
     background-position:center 52%}
   .pc__grid{grid-template-columns:1fr 1fr;gap:.6rem}
   .pc__c{padding:.55rem .55rem .85rem}
@@ -1040,7 +1075,7 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .rep__go{animation:none}
+  .rep__go::before{animation:none}
   html{scroll-behavior:auto}
   *,*::before,*::after{
     animation-duration:.01ms !important;animation-iteration-count:1 !important;

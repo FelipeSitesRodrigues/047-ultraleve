@@ -10,18 +10,39 @@
   if (ano) ano.textContent = new Date().getFullYear();
 
   /* ---------- header ao rolar ---------- */
+  /* Um marcador a 40px do topo, vigiado por IntersectionObserver. Ler window.scrollY
+     logo na carga forçava um layout síncrono da página inteira (110 ms no Lighthouse). */
   var hdr = document.getElementById('hdr');
-  var travado = false;
-  function aoRolar() {
-    if (travado) return;
-    travado = true;
-    requestAnimationFrame(function () {
+  if ('IntersectionObserver' in window) {
+    var marco = document.createElement('div');
+    marco.setAttribute('aria-hidden', 'true');
+    marco.style.cssText = 'position:absolute;top:40px;left:0;width:1px;height:1px;pointer-events:none';
+    document.body.insertBefore(marco, document.body.firstChild);
+    new IntersectionObserver(function (e) {
+      hdr.classList.toggle('stuck', !e[0].isIntersecting);
+    }).observe(marco);
+  } else {
+    window.addEventListener('scroll', function () {
       hdr.classList.toggle('stuck', window.scrollY > 40);
-      travado = false;
-    });
+    }, { passive: true });
   }
-  window.addEventListener('scroll', aoRolar, { passive: true });
-  aoRolar();
+
+  /* ---------- fundo da fábrica sob demanda ---------- */
+  /* Fundo de CSS baixa na carga mesmo fora da tela, disputando banda com o hero.
+     Aqui ele só entra quando a seção chega a 800px da janela. */
+  var fabBg = document.querySelector('.fab__bg');
+  if (fabBg) {
+    if ('IntersectionObserver' in window) {
+      var obsBg = new IntersectionObserver(function (e) {
+        if (!e[0].isIntersecting) return;
+        fabBg.classList.add('on');
+        obsBg.disconnect();
+      }, { rootMargin: '800px 0px' });
+      obsBg.observe(fabBg);
+    } else {
+      fabBg.classList.add('on');
+    }
+  }
 
   /* ---------- menu mobile ---------- */
   var burger = document.getElementById('burger');
