@@ -1,0 +1,140 @@
+/* ============================================================
+   UltraLeve Metalúrgica — landing pages de anúncio
+   Só o começo da página muda: hero da peça + faixa "vai junto".
+   Daí pra baixo é o mesmo site, com a prova social subida.
+   Carregado DEPOIS do style.css, e só pelas LPs.
+   ============================================================ */
+
+/* ---------- hero da peça ---------- */
+
+/* O véu do site abre a foto na direita, que é justamente onde o card da peça
+   entra. Na LP ele escurece a largura toda: a foto vira textura, o card lê. */
+.hero--lp::before{
+  background:
+    linear-gradient(94deg,rgba(5,6,7,.962) 0%,rgba(5,6,7,.93) 34%,
+                    rgba(5,6,7,.84) 62%,rgba(5,6,7,.76) 100%),
+    linear-gradient(180deg,rgba(5,6,7,.82) 0%,rgba(5,6,7,0) 34%),
+    linear-gradient(0deg,var(--ink-900) 0%,rgba(8,9,11,0) 32%);
+}
+
+.hero--lp .hero__over{margin-bottom:1.15rem}
+.hero--lp .hero__h1 .chrome{font-size:clamp(2rem,4.4vw,3.4rem)}
+
+/* Desktop: texto na esquerda, peça na direita.
+   Os filhos ficam soltos no grid do hero e a ordem do celular é a do código
+   (título, imagem, subtítulo, botões), sem precisar de `order`. */
+@media (min-width:1001px){
+  .hero--lp .hero__in{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) clamp(290px,27vw,380px);
+    grid-template-areas:
+      "over card"
+      "h1   card"
+      "sub  card"
+      "cta  card"
+      "note card";
+    column-gap:clamp(2rem,4vw,3.5rem);
+    align-items:center;
+  }
+  .hero--lp .hero__in > *{max-width:none}
+  .hero--lp .hero__over{grid-area:over;align-self:end}
+  .hero--lp .hero__h1  {grid-area:h1}
+  .hero--lp .hero__sub {grid-area:sub;max-width:52ch}
+  .hero--lp .hero__cta {grid-area:cta}
+  .hero--lp .hero__note{grid-area:note;align-self:start}
+  .hero--lp .pecaC     {grid-area:card;justify-self:end;width:100%}
+}
+
+/* ---------- card da peça ---------- */
+.pecaC{
+  margin:1.6rem 0 0;
+  border:1px solid var(--line-hi);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(19,22,25,.93),rgba(8,9,11,.96));
+  box-shadow:0 30px 64px -34px rgba(0,0,0,.95);
+  overflow:hidden;
+}
+@media (min-width:1001px){ .pecaC{margin:0} }
+
+/* as fotos de peça vêm com fundo próprio, umas brancas e outras em papel cinza,
+   então cada uma ganha o mesmo quadro claro do catálogo */
+.pecaC__g{display:grid;grid-template-columns:1fr;gap:.5rem;padding:.6rem .6rem 0}
+.pecaC__g.duas{grid-template-columns:1fr 1fr}
+.pecaC__img{
+  display:block;position:relative;overflow:hidden;
+  border-radius:8px;background:#e9e9e9;
+}
+.pecaC__img img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.pecaC__img::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(80% 70% at 50% 0%,rgba(0,0,0,.05),transparent 72%);
+}
+
+.pecaC__b{display:block;padding:.9rem .95rem .1rem}
+.pecaC__b b{
+  display:block;font:800 1.02rem/1.25 var(--disp);letter-spacing:-.015em;
+  text-transform:uppercase;color:var(--steel-050);
+}
+.pecaC__f{
+  display:block;margin-top:.3rem;
+  font:500 .7rem/1.35 var(--mono);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--steel-400);
+}
+
+/* preço: o número é o que a pessoa procura, então ele é o maior da linha.
+   "a partir de" e a nota seguram a expectativa de que é venda em volume. */
+.pecaC__p{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem;
+  margin:.85rem 0 0;padding:.7rem .95rem 0;
+  border-top:1px solid var(--line);
+}
+.pecaC__pr{
+  font:500 .68rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--steel-400);
+}
+.pecaC__p b{
+  font:900 1.8rem/1 var(--disp);letter-spacing:-.03em;color:var(--fire-400);
+}
+.pecaC__pu{font:500 .78rem/1 var(--body);color:var(--steel-300)}
+.pecaC__pn{
+  margin:.4rem 0 0;padding:0 .95rem;
+  font:400 .72rem/1.45 var(--body);color:var(--steel-500);
+}
+
+.pecaC__s{list-style:none;margin:.9rem 0 0;padding:0 .95rem 1rem;display:grid;gap:.5rem}
+.pecaC__s li{
+  display:flex;align-items:center;gap:.55rem;
+  font:500 .8rem/1.3 var(--body);color:var(--steel-200);
+}
+.pecaC__s svg{
+  flex:none;width:17px;height:17px;
+  fill:none;stroke:var(--fire-500);stroke-width:2.1;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+
+/* ---------- faixa "costuma ir junto" ---------- */
+.junto{background:var(--ink-850);border-bottom:1px solid var(--line)}
+.junto__in{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.7rem 1.1rem;
+  padding:1rem 0 1.05rem;
+}
+.junto__t{
+  margin:0;flex:none;
+  font:600 .7rem/1.4 var(--mono);letter-spacing:.17em;text-transform:uppercase;
+  color:var(--steel-400);
+}
+.junto__l{list-style:none;display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0}
+.junto__l a{
+  display:inline-block;padding:.36rem .7rem;
+  border:1px solid var(--line-hi);border-radius:999px;
+  font:500 .79rem/1.3 var(--body);color:var(--steel-200);text-decoration:none;
+  transition:color .25s var(--q),border-color .25s var(--q),background .25s var(--q);
+}
+.junto__l a:hover,.junto__l a:focus-visible{
+  color:#fff;border-color:var(--fire-500);background:rgba(242,106,10,.1);
+}
+
+@media (max-width:600px){
+  .junto__in{padding:.9rem 0 1rem}
+  .junto__t{width:100%}
+}
