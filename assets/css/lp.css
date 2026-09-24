@@ -112,6 +112,16 @@
   stroke-linecap:round;stroke-linejoin:round;
 }
 
+/* ---------- equipe com um card só ---------- */
+/* A grade da equipe é de 3 colunas até 780px. Com o card do Charles sozinho ele
+   ficaria encolhido no canto esquerdo, então vira uma coluna centrada. */
+@media (min-width:781px){
+  .rep--so1{
+    grid-template-columns:minmax(0,clamp(280px,26vw,340px));
+    justify-content:center;
+  }
+}
+
 /* ---------- faixa "costuma ir junto" ---------- */
 .junto{background:var(--ink-850);border-bottom:1px solid var(--line)}
 .junto__in{
