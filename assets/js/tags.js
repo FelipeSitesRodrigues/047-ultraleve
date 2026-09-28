@@ -97,6 +97,7 @@ var UL_TAGS = {
     ['wsp', 'barra-fixa'],
     ['hdr__cta', 'cabecalho'],
     ['fam__go', 'catalogo'],
+    ['pc__go', 'mais-vendidos'],
     ['fam__c--ajuda', 'nao-sei-a-peca'],
     ['rep__c', 'equipe'],
     ['junto__l', 'vai-junto'],
@@ -117,9 +118,10 @@ var UL_TAGS = {
 
   /* ---------- o clique ---------- */
 
-  /* Um ouvinte só, delegado no documento: pega os 31 links de WhatsApp da página
+  /* Um ouvinte só, delegado no documento: pega todos os links de WhatsApp da página
      sem precisar marcar nenhum deles no HTML, e continua valendo se o gerador
-     das LPs criar link novo. */
+     das LPs criar link novo. Os CTAs de seção caem no id da seção como origem
+     (fabrica, clientes, como, tecnologia, depoimentos, duvidas). */
   document.addEventListener(
     'click',
     function (e) {
