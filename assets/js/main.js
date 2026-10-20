@@ -101,27 +101,26 @@
     return;
   }
 
-  /* escalona irmãos dentro do mesmo grupo, sem precisar marcar no HTML */
-  document.querySelectorAll('.fam, .steps, .dif__g, .dep__g, .trust__grid, .pc__grid, .faq__l, .cat')
-    .forEach(function (grupo) {
-      var i = 0;
-      Array.prototype.forEach.call(grupo.children, function (filho) {
-        if (filho.classList.contains('reveal')) {
-          filho.style.setProperty('--rd', (i * 65) + 'ms');
-          i++;
-        }
-      });
-    });
-
+  /* O escalonamento nasce na hora de revelar, só entre os cards que entram juntos
+     (a fileira que acabou de aparecer). Antes era o índice dentro do grupo inteiro:
+     o 25º card do catálogo esperava mais de 1,5 s e a tela ficava vazia. O limite de
+     5 passos de 40 ms deixa o efeito em cascata sem atrasar ninguém. A leitura começa
+     15% antes da borda de baixo, pra o card já estar no lugar quando o olho chegar. */
   var obs = new IntersectionObserver(function (entradas) {
+    var k = 0;
     entradas.forEach(function (e) {
       if (!e.isIntersecting) return;
-      e.target.classList.add('in');
-      e.target.querySelectorAll('.num').forEach(function (n) { contar(n); });
-      if (e.target.classList.contains('num')) contar(e.target);
-      obs.unobserve(e.target);
+      var el = e.target;
+      if (el.classList.contains('reveal')) {
+        el.style.setProperty('--rd', (Math.min(k, 5) * 40) + 'ms');
+        k++;
+      }
+      el.classList.add('in');
+      el.querySelectorAll('.num').forEach(function (n) { contar(n); });
+      if (el.classList.contains('num')) contar(el);
+      obs.unobserve(el);
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+  }, { rootMargin: '0px 0px 15% 0px', threshold: 0 });
 
   alvos.forEach(function (el) { obs.observe(el); });
 })();

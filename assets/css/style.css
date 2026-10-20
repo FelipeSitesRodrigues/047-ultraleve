@@ -890,8 +890,8 @@ html{scrollbar-color:var(--line-hi) var(--ink-950);scrollbar-width:thin}
 /* ============================================================
    REVEAL no scroll
    ============================================================ */
-.reveal{opacity:0;transform:translateY(20px);
-  transition:opacity .62s var(--q),transform .62s var(--q);
+.reveal{opacity:0;transform:translateY(14px);
+  transition:opacity .4s var(--q),transform .4s var(--q);
   transition-delay:var(--rd,0ms)}
 .reveal.in{opacity:1;transform:none}
 
